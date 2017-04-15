@@ -1,5 +1,5 @@
 {
-  "name": "x2ts/x2ts-jpush",
+  "name": "x2ts/x2lib-jpush",
   "description": "JiGuang push classes",
   "type": "library",
   "license": "BSD",
