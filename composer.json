@@ -1,0 +1,21 @@
+{
+  "name": "x2ts/x2ts-jpush",
+  "description": "JiGuang push classes",
+  "type": "library",
+  "license": "BSD",
+  "authors": [
+    {
+      "name": "TingSong-Syu",
+      "email": "rek@rek.me"
+    }
+  ],
+  "require": {
+    "x2ts/x2ts": "^2.0",
+    "x2ts/x2ts-curl": "^2.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "x2lib\\JPush\\": "src"
+    }
+  }
+}
