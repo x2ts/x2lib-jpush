@@ -36,7 +36,7 @@ class JPush extends Component {
      */
     private $_curl;
 
-    public function getCurl() {
+    public function getCurl () {
         if (!$this->_curl instanceof CURL) {
             try {
                 $this->_curl = X::getComponent($this->conf['curlId']);
@@ -47,7 +47,18 @@ class JPush extends Component {
         return $this->_curl;
     }
 
-    public function notifyTags(array $tags, Notification $notification, array $options = []) {
+    public function notifyAll (Notification $notification, array $options = []) {
+        $data = [
+            'platform'     => 'all',
+            'audience'     => 'all',
+            'notification' => $notification->notification(),
+            'options'      => $options,
+        ];
+
+        return $this->push($data);
+    }
+
+    public function notifyTags (array $tags, Notification $notification, array $options = []) {
         $data = [
             'platform'     => 'all',
             'audience'     => [
@@ -62,7 +73,22 @@ class JPush extends Component {
         return $this->push($data);
     }
 
-    public function notifyAlias(array $alias, Notification $notification, array $options = []) {
+    public function notifyTagsAnd (array $tags, Notification $notification, array $options = []) {
+        $data = [
+            'platform'     => 'all',
+            'audience'     => [
+                'tag_and' => array_map(function ($tag) {
+                    return $this->conf['prefix'] . $tag;
+                }, $tags),
+            ],
+            'notification' => $notification->notification(),
+            'options'      => $options,
+        ];
+
+        return $this->push($data);
+    }
+
+    public function notifyAlias (array $alias, Notification $notification, array $options = []) {
         $data = [
             'platform'     => 'all',
             'audience'     => [
@@ -77,7 +103,7 @@ class JPush extends Component {
         return $this->push($data);
     }
 
-    public function push(array $data) {
+    public function push (array $data) {
         if (!isset($data['options']['apns_production'])) {
             $data['options']['apns_production'] = X_ENV !== 'debug';
         }
