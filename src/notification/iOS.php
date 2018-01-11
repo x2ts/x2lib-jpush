@@ -88,4 +88,14 @@ class iOS extends Notification {
         $this->notification['mutable-content'] = $mutable_content;
         return $this;
     }
+
+    /**
+     * @param array $extras 消息扩展字段
+     *
+     * @return $this
+     */
+    public function extras(array $extras) {
+        $this->notification['extras'] = $extras;
+        return $this;
+    }
 }
